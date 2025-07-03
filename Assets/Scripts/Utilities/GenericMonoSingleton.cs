@@ -9,6 +9,7 @@ namespace ChestSystem.Utilities
 
         protected virtual void Awake()
         {
+            Debug.Log("Awake is called");
             if(instance == null)
             {
                 instance = (T)this;
