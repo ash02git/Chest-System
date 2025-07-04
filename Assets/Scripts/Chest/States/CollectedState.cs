@@ -9,7 +9,7 @@ namespace ChestSystem.Chest
 
         public CollectedState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
-        public void OnStateEnter()
+        public void OnStateEnter() //probably destroy the chest
         {
 
         }
@@ -19,7 +19,7 @@ namespace ChestSystem.Chest
 
         }
 
-        public void OnStateExit()
+        public void OnStateExit() //nothing much to do i guess
         {
 
         }

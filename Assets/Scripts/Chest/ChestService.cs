@@ -1,3 +1,4 @@
+using ChestSystem.Main;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,6 @@ namespace ChestSystem.Chest
 {
     public class ChestService
     {
-        //private List<ChestController> chests;
         private List<ChestSlotView> slots;
         private int maxChestsSlots = 4;
 
@@ -13,9 +13,9 @@ namespace ChestSystem.Chest
 
         private List<ChestScriptableObject> chestSOList;
 
-        public ChestService(GameObject chestSlotView, Transform chestSystemParent, ChestView chestPrefab, List<ChestScriptableObject> chestSOList)
+        public ChestService(GameObject chestSlotView, Transform chestSystemParent, ChestView chestPrefab, 
+            List<ChestScriptableObject> chestSOList)
         {
-            //chests = new List<ChestController>();
             this.chestSOList = chestSOList;
             slots = new List<ChestSlotView>();
             this.chestPrefab = chestPrefab;
@@ -37,15 +37,20 @@ namespace ChestSystem.Chest
             foreach(ChestSlotView slot in slots)
             {
                 if (slot.slotState == SlotState.Free)
-                    slot.currentChest = CreateChest( slot.slotTransform.transform);
+                {
+                    slot.currentChest = CreateChest(slot.slotTransform.transform);
+                    slot.slotState = SlotState.Occupied;
+                    return;
+                }
             }
+
+            GameService.Instance.PopupService.DisplayErrorText();
         }
 
         private ChestController CreateChest( Transform slot)
         {
             ChestScriptableObject chestSO = getRandomChestScriptableObject();
             ChestController newChest = new ChestController(chestSO, chestPrefab, slot);
-            //chests.Add(newChest);
             return newChest;
         }
 

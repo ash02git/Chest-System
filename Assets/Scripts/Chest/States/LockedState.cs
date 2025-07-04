@@ -9,19 +9,10 @@ namespace ChestSystem.Chest
 
         public LockedState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
-        public void OnStateEnter()
-        {
+        public void OnStateEnter() => Owner.ShowStateComponents(ChestStates.Locked);
 
-        }
+        public void Update() { } //in locked state, no need to update anything
 
-        public void Update()
-        {
-
-        }
-
-        public void OnStateExit()
-        {
-
-        }
+        public void OnStateExit() => Owner.HideStateComponents(ChestStates.Locked);
     }
 }

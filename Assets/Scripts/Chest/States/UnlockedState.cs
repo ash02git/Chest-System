@@ -9,19 +9,13 @@ namespace ChestSystem.Chest
 
         public UnlockedState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
-        public void OnStateEnter()
-        {
-
-        }
+        public void OnStateEnter() => Owner.ShowStateComponents(ChestStates.Unlocked);
 
         public void Update()
         {
 
         }
 
-        public void OnStateExit()
-        {
-
-        }
+        public void OnStateExit() => Owner.HideStateComponents(ChestStates.Unlocked);
     }
 }

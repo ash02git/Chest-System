@@ -807,11 +807,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 2
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -854,7 +854,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1531407083}
-  - {fileID: 1963714831}
   - {fileID: 344439691}
   - {fileID: 1296962426}
   m_Father: {fileID: 0}
@@ -1552,7 +1551,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestView: {fileID: 7755626019370169548, guid: ba33e613b492afb4284bc13a2c2fe7e6, type: 3}
   chestSlotView: {fileID: 5447109346152785042, guid: 5ad2722591d810340a1caef3dd27e3b6, type: 3}
+  addChestButton: {fileID: 6029768399784299891, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
+  errorTextPopup: {fileID: 1599649221295872490, guid: 67cd37f34cfe9b14283614e7dcc4c3e6, type: 3}
+  chestPopup: {fileID: 1064210934524075906, guid: 22dcf7e3c290d4640a922643ea312a04, type: 3}
   chestSystemParent: {fileID: 1296962426}
+  parentCanvas: {fileID: 578345164}
   chestScriptableObjects:
   - {fileID: 11400000, guid: b3c67f5d4e619c44bb9b9528305091e0, type: 2}
   - {fileID: 11400000, guid: 4d55e2570d0c0804baee33b82b8eb5e6, type: 2}
@@ -2044,11 +2047,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798656346}
   m_CullTransparentMesh: 1
---- !u!224 &1963714831 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-  m_PrefabInstance: {fileID: 4423675715370685248}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2001403875
 GameObject:
   m_ObjectHideFlags: 0
@@ -2183,103 +2181,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001403875}
   m_CullTransparentMesh: 1
---- !u!1001 &4423675715370685248
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 578345164}
-    m_Modifications:
-    - target: {fileID: 2512094841730950348, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_Name
-      value: Add Chest Button
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530658886642916240, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 488316a4c39e61249b2fdbf9d47c53a9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
