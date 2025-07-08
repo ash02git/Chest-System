@@ -1,5 +1,4 @@
 using ChestSystem.StateMachine;
-using System;
 using UnityEngine;
 
 namespace ChestSystem.Chest
@@ -9,43 +8,63 @@ namespace ChestSystem.Chest
         private ChestScriptableObject chestSO;
         private ChestView chestView;
 
+        private ChestStates currentState;
+
         private ChestStateMachine stateMachine;
+
+        private int timeLeft; //in seconds
 
         public ChestController(ChestScriptableObject chestSO, ChestView chestView, Transform parent)
         {
             this.chestSO = chestSO;
-            InitializeView(chestView, chestSO.chestIcon, chestSO.unlockTime, parent);
+            timeLeft = chestSO.unlockTime * 60;
+
+            InitializeView(chestView, chestSO.chestIcon, timeLeft, parent);
             CreateStateMachine();
-            stateMachine.ChangeState(ChestStates.Locked);
+
+            stateMachine.ChangeState(ChestStates.Locked); //initially making ChestState as locked
+            currentState = ChestStates.Locked;
         }
 
         private void CreateStateMachine() => stateMachine = new ChestStateMachine(this);
 
-        private void InitializeView(ChestView prefab, Sprite chestIcon, int unlockTime, Transform parent)
+        private void InitializeView(ChestView prefab, Sprite chestIcon, int timeLeft, Transform parent)
         {
             chestView = GameObject.Instantiate<ChestView>(prefab, parent);
             chestView.SetController(this);
-            chestView.InitializeChestView(chestIcon, unlockTime);
+            chestView.InitializeChestView(chestIcon, timeLeft);
         }
 
         public void DestroyChest()
         {
-            GameObject.Destroy(this.chestView);
+            GameObject.Destroy(this.chestView.gameObject);
             chestSO = null;
         }
 
-        public void UpdateEnemy() => stateMachine.Update();
+        public ChestStates GetChestState() => currentState;
 
-        public void StartedUnlocking() => stateMachine.ChangeState(ChestStates.Unlocking);
+        public int GetTimeLeft() => timeLeft;
 
-        public void UnlockingCompleted() => stateMachine.ChangeState(ChestStates.Unlocked);
-
-        public void ChestCollected() => stateMachine.ChangeState(ChestStates.Collected);
+        public void SetState(ChestStates newState)  //change name of function to SetState
+        {
+            stateMachine.ChangeState(newState);
+            currentState = newState;
+        }
 
         public void ShowStateComponents(ChestStates state) => chestView.ShowStateComponents(state);
 
         public void HideStateComponents(ChestStates state) => chestView.HideStateComponents(state);
 
-        public int GetUnlockTime() => chestSO.unlockTime;
+        public void StartTimer() => chestView.StartTimer(timeLeft);
+
+        public void StopTimer() => chestView.StopTimer();
+
+        public void UpdateTimeLeft() => timeLeft--;
+
+        public int GetRandomGems() => UnityEngine.Random.Range(chestSO.minGems, chestSO.maxGems);
+
+        public int GetRandomGold() => UnityEngine.Random.Range(chestSO.minGold, chestSO.maxGold);
+
+        ~ChestController() => Debug.Log("Chest Controller Deleted");
     }
 }

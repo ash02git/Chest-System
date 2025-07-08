@@ -1,4 +1,6 @@
+using ChestSystem.Main;
 using ChestSystem.StateMachine;
+using UnityEngine;
 
 namespace ChestSystem.Chest
 {
@@ -9,19 +11,20 @@ namespace ChestSystem.Chest
 
         public CollectedState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
-        public void OnStateEnter() //probably destroy the chest
+        public void OnStateEnter()
         {
+            int gemsObtained = Owner.GetRandomGems();
+            int goldObtained = Owner.GetRandomGold();
 
-        }
+            GameService.Instance.EventService.OnGemsChanged.InvokeEvent(gemsObtained);
+            GameService.Instance.EventService.OnGoldChanged.InvokeEvent(goldObtained);
 
-        public void Update()
-        {
-
+            OnStateExit();
         }
 
         public void OnStateExit() //nothing much to do i guess
         {
-
+            GameService.Instance.EventService.OnChestCollected.InvokeEvent(Owner);
         }
     }
 }

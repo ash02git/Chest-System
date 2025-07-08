@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1909205179349212409}
   - component: {fileID: 2817295950218815765}
   - component: {fileID: 2251216790296113012}
-  - component: {fileID: 6029768399784299891}
   m_Layer: 5
   m_Name: Add Chest Button
   m_TagString: Untagged
@@ -122,20 +121,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6029768399784299891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2512094841730950348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de5ecca9fdfce30499ebc2732f02f640, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  errorText: {fileID: 0}
-  addChestButton: {fileID: 2251216790296113012}
 --- !u!1 &2762115137612377099
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,43 +1,71 @@
 using ChestSystem.Chest;
+using ChestSystem.Main;
 using System;
-using System.Collections;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ChestSystem.Popup
 {
     public class PopupService
     {
-        private GameObject errorPopup;
+        private GameObject slotFullPopup;
+        private GameObject unableToUnlockPopup;
         private ChestPopupController chestPopup;
-        private AddChestButton addChestButton;
+        private Button addChestButton;
+
+        private TextMeshProUGUI textPopup;
 
         private float errorPopupDuration = 1.5f;
 
-        public PopupService(GameObject errorPopup, ChestPopupController chestPopup, AddChestButton addChestButton, Transform parentCanvas)
+        public PopupService(TextMeshProUGUI textPopup, ChestPopupController chestPopup, Button addChestButton,Transform parentCanvas)
         {
-            CreatePopups(errorPopup, chestPopup, addChestButton, parentCanvas);
+            CreatePopups(textPopup, chestPopup, addChestButton, parentCanvas);
+            SubscribeToEvents();
         }
 
-        private void CreatePopups(GameObject errorPopup, ChestPopupController chestPopup, AddChestButton addChestButton, Transform parentCanvas)
+        ~PopupService()
         {
-            this.addChestButton = GameObject.Instantiate<AddChestButton>(addChestButton, parentCanvas);
-            this.errorPopup = GameObject.Instantiate(errorPopup, parentCanvas);
+            UnsubscribeToEvents();
+        }
+
+        private void CreatePopups(TextMeshProUGUI textPopup, ChestPopupController chestPopup, Button addChestButton,Transform parentCanvas)
+        {
+            this.addChestButton = GameObject.Instantiate<Button>(addChestButton, parentCanvas);
+            this.textPopup = GameObject.Instantiate<TextMeshProUGUI>(textPopup, parentCanvas);
             this.chestPopup = GameObject.Instantiate<ChestPopupController>(chestPopup, parentCanvas);
         }
 
-        public void DisplayErrorText() => ShowErrorTextAsync();
-
-        private async void ShowErrorTextAsync()
+        private void SubscribeToEvents()
         {
-            errorPopup.SetActive(true);
-            await Task.Delay(TimeSpan.FromSeconds(errorPopupDuration));
-            errorPopup.SetActive(false);
+            addChestButton.onClick.AddListener(GameService.Instance.ChestService.TryAddChest);
         }
 
-        public void ShowChestPopup(int unlockTime)
+        private void UnsubscribeToEvents()
+        {
+            addChestButton.onClick.RemoveListener(GameService.Instance.ChestService.TryAddChest);
+        }
+
+        public void ShowTextPopup(string message)
+        {
+            textPopup.text = message;
+            ShowTextPopupAsync(textPopup.gameObject);
+        }
+
+        private async void ShowTextPopupAsync(GameObject popup)
+        {
+            popup.SetActive(true);
+            await Task.Delay(TimeSpan.FromSeconds(errorPopupDuration));
+
+            if (popup != null)
+                popup.SetActive(false);
+        }
+
+        public void ShowChestPopup(ChestController chestController)
         {
             chestPopup.gameObject.SetActive(true);
+            chestPopup.SetView(chestController); 
         }
     }
 }

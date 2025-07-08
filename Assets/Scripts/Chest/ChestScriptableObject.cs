@@ -11,6 +11,6 @@ namespace ChestSystem.Chest
         public int maxGold;
         public int minGems;
         public int maxGems;
-        public int unlockTime;
+        public int unlockTime; //in minutes
     }
 }

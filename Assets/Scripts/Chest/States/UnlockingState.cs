@@ -1,4 +1,5 @@
 using ChestSystem.StateMachine;
+using System.Diagnostics;
 
 namespace ChestSystem.Chest
 {
@@ -9,11 +10,10 @@ namespace ChestSystem.Chest
 
         public UnlockingState(GenericStateMachine<T> stateMachine) => this.stateMachine = stateMachine;
 
-        public void OnStateEnter() => Owner.ShowStateComponents(ChestStates.Unlocking);
-
-        public void Update()
+        public void OnStateEnter()
         {
-
+            Owner.ShowStateComponents(ChestStates.Unlocking);
+            Owner.StartTimer();
         }
 
         public void OnStateExit() => Owner.HideStateComponents(ChestStates.Unlocking);

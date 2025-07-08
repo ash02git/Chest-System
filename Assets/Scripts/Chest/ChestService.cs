@@ -1,4 +1,5 @@
 using ChestSystem.Main;
+using ChestSystem.StateMachine;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,8 +20,20 @@ namespace ChestSystem.Chest
             this.chestSOList = chestSOList;
             slots = new List<ChestSlotView>();
             this.chestPrefab = chestPrefab;
-            CreateChestSlots(chestSlotView, chestSystemParent);
             this.chestSOList = chestSOList;
+
+            CreateChestSlots(chestSlotView, chestSystemParent);
+            SubscribeToEvents();
+        }
+
+        ~ChestService()
+        {
+            GameService.Instance.EventService.OnChestCollected.RemoveListener(RemoveChest);
+        }
+
+        private void SubscribeToEvents()
+        {
+            GameService.Instance.EventService.OnChestCollected.AddListener(RemoveChest);
         }
 
         private void CreateChestSlots(GameObject chestSlotView, Transform chestSystemParent)
@@ -40,11 +53,12 @@ namespace ChestSystem.Chest
                 {
                     slot.currentChest = CreateChest(slot.slotTransform.transform);
                     slot.slotState = SlotState.Occupied;
+
                     return;
                 }
             }
 
-            GameService.Instance.PopupService.DisplayErrorText();
+            GameService.Instance.PopupService.ShowTextPopup("Slots Full !!");
         }
 
         private ChestController CreateChest( Transform slot)
@@ -68,5 +82,21 @@ namespace ChestSystem.Chest
         }
 
         private ChestScriptableObject getRandomChestScriptableObject() => chestSOList[Random.Range(0,chestSOList.Count)];
+
+        public void SetState(ChestController chestController, ChestStates newState) => chestController.SetState(newState);
+
+        public bool CheckAnyChestIsUnlocking(ChestController controller) //checks if any other chest other than passed chest is unlocking
+        {
+            foreach(ChestSlotView slot in slots)
+            {
+                if(slot.currentChest != null)
+                {
+                    if(slot.currentChest.GetChestState() == ChestStates.Unlocking && slot.currentChest != controller)
+                        return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

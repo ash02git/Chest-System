@@ -11,11 +11,6 @@ namespace ChestSystem.Chest
 
         public void OnStateEnter() => Owner.ShowStateComponents(ChestStates.Unlocked);
 
-        public void Update()
-        {
-
-        }
-
         public void OnStateExit() => Owner.HideStateComponents(ChestStates.Unlocked);
     }
 }

@@ -11,8 +11,6 @@ namespace ChestSystem.StateMachine
 
         public GenericStateMachine(T Owner) => this.Owner = Owner;
 
-        public void Update() => currentState.Update();
-
         protected void ChangeState(IState newState)
         {
             currentState?.OnStateExit();
