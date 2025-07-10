@@ -2,11 +2,11 @@ using ChestSystem.Main;
 
 namespace ChestSystem.Resources
 {
-    public class PlayerResourcesService
+    public class ResourcesService
     {
         private CurrencyController currencyController;
 
-        public PlayerResourcesService(int initialGold, int initialGems)
+        public ResourcesService(int initialGold, int initialGems)
         {
             currencyController = new CurrencyController(initialGold, initialGems);
 

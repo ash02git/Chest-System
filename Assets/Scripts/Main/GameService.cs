@@ -36,7 +36,7 @@ namespace ChestSystem.Main
         public ChestService ChestService { get; private set; }
         public PopupService PopupService { get; private set; }
         public EventService EventService { get; private set; }
-        public PlayerResourcesService PlayerResourcesService { get; private set; }
+        public ResourcesService PlayerResourcesService { get; private set; }
 
         public CommandInvoker CommandInvoker { get; private set; }
 
@@ -50,7 +50,7 @@ namespace ChestSystem.Main
             EventService = new EventService();
             ChestService = new ChestService(chestSlotView, chestSystemParent, chestView, chestScriptableObjects);
             PopupService = new PopupService(textPopup, chestPopup, undoPopup, addChestButton, parentCanvas);
-            PlayerResourcesService = new PlayerResourcesService(initialGold, initialGems);
+            PlayerResourcesService = new ResourcesService(initialGold, initialGems);
             CommandInvoker = new CommandInvoker();
         }
     }
