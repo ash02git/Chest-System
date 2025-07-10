@@ -1,4 +1,5 @@
 using ChestSystem.Chest;
+using ChestSystem.Commands;
 using ChestSystem.Main;
 using ChestSystem.StateMachine;
 using System.Collections;
@@ -86,14 +87,19 @@ namespace ChestSystem.Popup
         {
             if (GameService.Instance.PlayerResourcesService.AreGemsAvailable(gemsRequired))
             {
-                GameService.Instance.ChestService.SetState(chestController, ChestStates.Unlocked);
-                GameService.Instance.PlayerResourcesService.UpdateGems(-gemsRequired);
+                ICommand command = new UnlockChestWithGemsCommand(chestController, gemsRequired);
+                GameService.Instance.CommandInvoker.ProcessCommand(command);
+                GameService.Instance.PopupService.ShowUndoPopup(gemsRequired);
             }
             else
                 GameService.Instance.PopupService.ShowTextPopup("Not Enough Gems!!");
         }
 
-        private void OnDisable() => StopCoroutine(timerCoroutine);
+        private void OnDisable()
+        {
+            if(timerCoroutine != null)
+                StopCoroutine(timerCoroutine);
+        }
 
         private void OnDestroy()
         {
