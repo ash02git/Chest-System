@@ -47,6 +47,7 @@ namespace ChestSystem.Chest
 
                 case ChestStates.Unlocked:
                     controller.SetState(ChestStates.Collected);
+                    GameService.Instance.PopupService.HideUndoPopup();
                     break;
             }
         }
@@ -97,7 +98,7 @@ namespace ChestSystem.Chest
                 text += hrs + "h ";
 
             if (mins >= 1)
-                text += mins + "min ";
+                text += mins + "m ";
 
             if (secs >= 1)
                 text += secs + "s";
@@ -120,7 +121,7 @@ namespace ChestSystem.Chest
             switch(state)
             {
                 case ChestStates.Locked:
-                    //stateText.gameObject.SetActive(true);//later, stateText will always be on
+                    stateText.gameObject.SetActive(true);//later, stateText will always be on
                     timeText.gameObject.SetActive(true);
                     break;
                 case ChestStates.Unlocking:
@@ -137,7 +138,7 @@ namespace ChestSystem.Chest
             switch (state)
             {
                 case ChestStates.Locked:
-                    //stateText.gameObject.SetActive(false);//later, stateText will always be on
+                    stateText.gameObject.SetActive(false);//later, stateText will always be on
                     timeText.gameObject.SetActive(false);
                     break;
                 case ChestStates.Unlocking:
@@ -150,5 +151,7 @@ namespace ChestSystem.Chest
         }
 
         public void StartTimer(int seconds) => timerCoroutine = StartCoroutine(TimerCoroutine(seconds));
+
+        private void OnDestroy() => controller = null;
     }
 }

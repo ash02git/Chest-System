@@ -10,18 +10,16 @@ namespace ChestSystem.Popup
 {
     public class PopupService
     {
-        private GameObject slotFullPopup;
-        private GameObject unableToUnlockPopup;
+        private UndoPopupController undoPopup;
         private ChestPopupController chestPopup;
         private Button addChestButton;
-
         private TextMeshProUGUI textPopup;
 
         private float errorPopupDuration = 1.5f;
 
-        public PopupService(TextMeshProUGUI textPopup, ChestPopupController chestPopup, Button addChestButton,Transform parentCanvas)
+        public PopupService(TextMeshProUGUI textPopup, ChestPopupController chestPopup, UndoPopupController undoPopup,Button addChestButton,Transform parentCanvas)
         {
-            CreatePopups(textPopup, chestPopup, addChestButton, parentCanvas);
+            CreatePopups(textPopup, chestPopup, undoPopup, addChestButton, parentCanvas);
             SubscribeToEvents();
         }
 
@@ -30,11 +28,12 @@ namespace ChestSystem.Popup
             UnsubscribeToEvents();
         }
 
-        private void CreatePopups(TextMeshProUGUI textPopup, ChestPopupController chestPopup, Button addChestButton,Transform parentCanvas)
+        private void CreatePopups(TextMeshProUGUI textPopup, ChestPopupController chestPopup, UndoPopupController undoPopup, Button addChestButton,Transform parentCanvas)
         {
             this.addChestButton = GameObject.Instantiate<Button>(addChestButton, parentCanvas);
             this.textPopup = GameObject.Instantiate<TextMeshProUGUI>(textPopup, parentCanvas);
             this.chestPopup = GameObject.Instantiate<ChestPopupController>(chestPopup, parentCanvas);
+            this.undoPopup = GameObject.Instantiate<UndoPopupController>(undoPopup, parentCanvas);
         }
 
         private void SubscribeToEvents()
@@ -66,6 +65,17 @@ namespace ChestSystem.Popup
         {
             chestPopup.gameObject.SetActive(true);
             chestPopup.SetView(chestController); 
+        }
+
+        public void ShowUndoPopup(int gems)
+        {
+            undoPopup.gameObject.SetActive(true);
+            undoPopup.UpdateDetails(gems);
+        }
+
+        public void HideUndoPopup()
+        {
+            undoPopup.gameObject.SetActive(false);
         }
     }
 }

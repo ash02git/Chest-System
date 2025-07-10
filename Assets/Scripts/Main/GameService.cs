@@ -1,4 +1,5 @@
 using ChestSystem.Chest;
+using ChestSystem.Commands;
 using ChestSystem.Events;
 using ChestSystem.Popup;
 using ChestSystem.Resources;
@@ -19,6 +20,7 @@ namespace ChestSystem.Main
         [SerializeField] private Button addChestButton;
         [SerializeField] private TextMeshProUGUI textPopup;
         [SerializeField] private ChestPopupController chestPopup;
+        [SerializeField] private UndoPopupController undoPopup;
 
         [Header("Scene References")]
         [SerializeField] private Transform chestSystemParent;
@@ -36,6 +38,8 @@ namespace ChestSystem.Main
         public EventService EventService { get; private set; }
         public PlayerResourcesService PlayerResourcesService { get; private set; }
 
+        public CommandInvoker CommandInvoker { get; private set; }
+
         [SerializeField] private UIService uiService;
         public UIService UIService => uiService;
 
@@ -45,8 +49,9 @@ namespace ChestSystem.Main
         {
             EventService = new EventService();
             ChestService = new ChestService(chestSlotView, chestSystemParent, chestView, chestScriptableObjects);
-            PopupService = new PopupService(textPopup, chestPopup, addChestButton, parentCanvas);
+            PopupService = new PopupService(textPopup, chestPopup, undoPopup, addChestButton, parentCanvas);
             PlayerResourcesService = new PlayerResourcesService(initialGold, initialGems);
+            CommandInvoker = new CommandInvoker();
         }
     }
 }
